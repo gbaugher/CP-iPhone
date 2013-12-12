@@ -45,12 +45,12 @@ airlinesApp.prototype = function() {
     
     _initTripDetail = function(){
         var seg = _flightForDetails.segments[0];
-	    $('#tripDetail-title').text(seg.from + ' to ' + seg.to);
+	    $('#tripDetail-title').text(seg.from);
 	    $('#tripDetail-flightNum').text(seg.flightNum);
-	    $('#tripDetail-depart').text(seg.departDate + ' at ' + seg.time);
+	    $('#tripDetail-depart').text(seg.time);
 	    $('#tripDetail-seat').text(seg.seat);
 	    seg = _flightForDetails.segments[1];
-	    $('#tripDetail-return-title').text(seg.from + ' to ' + seg.to);
+	    $('#tripDetail-return-title').text(seg.from);
 	    $('#tripDetail-return-flightNum').text(seg.flightNum);
 	    $('#tripDetail-return-depart').text(seg.departDate + ' at ' + seg.time);
         $('#tripDetail-return-seat').text(seg.seat);
@@ -64,7 +64,7 @@ airlinesApp.prototype = function() {
 	    $('#boardingpass-seat').text(currentseg.seat);
 	    $('#boardingpass-gate').text(currentseg.gate);
 	    $('#boardingpass-depart').text(currentseg.time);
-	    var flight = currentseg.flightNum + ':' + currentseg.from + ' to ' + currentseg.to;
+	    var flight = currentseg.flightNum + ':' + currentseg.from;
 	    $('#boardingpass-flight').text(flight);
     },
     
@@ -83,7 +83,7 @@ airlinesApp.prototype = function() {
     _initCheckIn = function(){
         var currentseg = _flightForCheckin.segments[_flightForCheckin.currentSegment],
 	    seat = currentseg.seat,
-	    flight = currentseg.from + ' to ' + currentseg.to;
+	    flight = currentseg.from;
 	    $('#checkIn-flight-number').text(currentseg.flightNum);
 	    $('#checkIn-flight-destination').text(flight);
         
@@ -108,13 +108,13 @@ airlinesApp.prototype = function() {
 		for (var i in data.flights) {
 			var flight = data.flights[i],
             currentSegment = flight.segments[flight.currentSegment];
-			$flightList.append('<li id="' + flight.id + '"><a href="#tripDetail" data-transition="slide">' + currentSegment.from + ' to ' + currentSegment.to + '</a></li>');
+			$flightList.append('<li id="' + flight.id + '"><a href="#tripDetail" data-transition="slide">' + currentSegment.from + '</a></li>');
 			var item = $('#' + flight.id, $flightList);
 			item.data('flight', flight);
 			if (flight.timeToCheckIn) {
 
-				item.addClass('checkIn');
-				$('a', item).attr('href', '#checkIn');
+				item.addClass('tripDetail');
+				$('a', item).attr('href', '#tripDetail');
 			}
 			else {
 				item.addClass('tripDetail');
